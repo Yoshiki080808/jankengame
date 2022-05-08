@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>NEXT GAFA TEST</title>
+</head>
+<body>
+
+<header>
+  <h1>NEXT GAFA TEST</h1>
+</header>
+
+<main>
+
+  <div>
+    <p>あなたのベンチャー知識測定テスト〜（パフパフ！）</p>
+    <p>S~Dランクの評価がつきます！</p>
+
+  </div>
+  <div class="wrapper">
+    <div class="quiz_wrapper">
+      <h4>日本や海外の面白いベンチャー企業についてのクイズです！</h4>
+      <div id="quiz"></div>
+      <button id="submit">Submit Quiz</button>
+      <div id="results"></div>
+
+        
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<footer></footer>
+<script>
+
+// まず全体を、関数として固める。
+(function(){
+  
+// ここから、クイズを生成していくところを作る。
+function buildQuiz(){
+  // HTMLで出力されるものを入れておく空箱outputを用意する。ここに質問＆解答の選択肢を入力する。
+  const output = [];
+
+  // 全ての質問一つ一つに対しての処理（現在の値？と現在の質問のインデックスを受け取る）
+  myQuestions.forEach(
+    (currentQuestion, questionNumber) => {
+
+      // 回答された選択肢が入るための空箱を用意。
+      const answers = [];
+
+      // そして、全部の回答に対して必要とされる処理
+      for(letter in currentQuestion.answers){
+
+        // 回答の選択肢毎に、ループを使ってラジオボタンを生成する。
+        answers.push(
+          `<label>
+            <input type="radio" name="question${questionNumber}" value="${letter}">
+            ${letter} :
+            ${currentQuestion.answers[letter]}
+          </label>`
+        );
+      }
+
+      // 埋め込み文字とTLを使って、質問と回答のそれぞれを追加する処理をする。回答はjoin関数を使って一つの文字列にする。
+      output.push(
+        `<div class="question"> ${currentQuestion.question} </div>
+        <div class="answers"> ${answers.join('')} </div>`
+      );
+    }
+  );
+
+  // 各質問のHTMLが完成したら、全てを結合してページに表示します。
+  quizContainer.innerHTML = output.join('');
+}
+
+
+// 次はクイズの結果を表示する
+
+function showResults(){
+
+// クイズのHTMLから全ての解答を入れる空箱を選択する。
+const answerContainers = quizContainer.querySelectorAll('.answers');
+
+// 正答数と、現在の質問に対してユーザーが選択した解答を入れておく箱を用意
+let numCorrect = 0;
+
+// 全ての質問に対して、forEachを適用させる処理
+myQuestions.forEach( (currentQuestion, questionNumber) => {
+
+  // 選択された答えを取得してくる  ここがいまいち分かりづらい！！！あ、でもわかったかも。
+  // 一つ目の行はすべての解答のうち、選択されている質問の解答だけを選択する
+  // 次にCSSセレクタに合致している物だけを抽出する
+  // そして、
+  const answerContainer = answerContainers[questionNumber];
+  const selector = 'input[name=question'+questionNumber+']:checked';
+  const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+  // もし、解答が正しい場合の処理を実行
+  if(userAnswer===currentQuestion.correctAnswer){
+    // 正答数に点をプラス
+    numCorrect++;
+
+    // ライトグリーンに表示
+    answerContainers[questionNumber].style.color = 'lightgreen';
+  }
+  // もし、解答が間違いまたは空欄だった場合
+  else{
+    // 赤色に表示
+    answerContainers[questionNumber].style.color = 'red';
+  }
+});
+
+// 全部でどのくらいあってるのかを計算
+resultsContainer.innerHTML = numCorrect + ' out of ' + myQuestions.length;
+}
+
+// まず、documentオブジェクトとID要素を取得するメソッドを使って、変数に入れ込む
+const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit');
+
+
+// クイズを作りたいだけ作る。今はサンプル問題を用意しました。一つ一つの質問を配列として書く。
+const myQuestions = [
+  {
+    question: "Who is the strongest?",
+    answers: {
+      a: "Superman",
+      b: "The Terminator",
+      c: "Waluigi, obviously"
+    },
+    correctAnswer: "c"
+  },
+  {
+    question: "What is the best site ever created?",
+    answers: {
+      a: "SitePoint",
+      b: "Simple Steps Code",
+      c: "Trick question; they're both the best"
+    },
+    correctAnswer: "c"
+  },
+  {
+    question: "Where is Waldo really?",
+    answers: {
+      a: "Antarctica",
+      b: "Exploring the Pacific Ocean",
+      c: "Sitting in a tree",
+      d: "Minding his own business, so stop asking"
+    },
+    correctAnswer: "d"
+  }
+];
+
+    
+// クイズをすぐに表示する処理
+buildQuiz();
+
+// 提出ボタンを押すことで、結果を表示する処理。addEventListenerとShowResults関数用意
+submitButton.addEventListener('click', showResults);
+
+})();
+
+
+</script>
+</body>
+</html>
