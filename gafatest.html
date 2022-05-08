@@ -24,8 +24,9 @@
       <div class="quiz_wrapper">
         <h4>日本や海外の面白いベンチャー企業についてのクイズです！</h4>
         <div id="quiz"></div>
-        
-        <button id="submit">Submit Quiz</button>
+          <button id="previous">前の問題</button>
+          <button id="next">次の問題</button>
+          <button id="submit">解答する</button>
         <div id="results"></div>  
       </div>
     </div>
@@ -49,30 +50,30 @@
   // クイズを作りたいだけ作る。今はサンプル問題を用意しました。一つ一つの質問を配列として書く。
   const myQuestions = [
     {
-      question: "Who is the strongest?",
+      question: "モルガン・スタンレーや楽天イーグルスでの就業経験を経て創業したのは次のうち誰?",
       answers: {
-        a: "Superman",
-        b: "The Terminator",
-        c: "Waluigi, obviously"
+        a: "赤坂優",
+        b: "山田進太郎",
+        c: "南壮一郎"
       },
       correctAnswer: "c"
     },
     {
-      question: "What is the best site ever created?",
+      question: "「Mobile Tech For All」をミッションとして掲げ、プログラミングを必要としないアプリ開発プラットフォームを提供している企業の社名兼サービス名といえば？?",
       answers: {
-        a: "SitePoint",
-        b: "Simple Steps Code",
-        c: "Trick question; they're both the best"
+        a: "ベース（BASE）",
+        b: "ミラティブ（Mirrativ）",
+        c: "ヤプリ（Yappli）"
       },
       correctAnswer: "c"
     },
     {
-      question: "Where is Waldo really?",
+      question: "皆大好き「NewsPicks」を運営している会社はどれ？?",
       answers: {
-        a: "Antarctica",
-        b: "Exploring the Pacific Ocean",
-        c: "Sitting in a tree",
-        d: "Minding his own business, so stop asking"
+        a: "株式会社SPEEDA",
+        b: "ヘイ株式会社",
+        c: "株式会社エウレカ",
+        d: "株式会社ユーザベース"
       },
       correctAnswer: "d"
     }
@@ -104,10 +105,14 @@
           );
         }
 
-        // 埋め込み文字とTLを使って、質問と回答のそれぞれを追加する処理をする。回答はjoin関数を使って一つの文字列にする。
+        // 埋め込み文字とTLを使って、質問と回答のそれぞれを追加する処理をする。
+        // 回答はjoin関数を使って一つの文字列にする。
+        // スライドクラスの中にこれらを内包する。
         output.push(
-          `<div class="question"> ${currentQuestion.question} </div>
-          <div class="answers"> ${answers.join('')} </div>`
+          `<div class="slide">
+            <div class="question"> ${currentQuestion.question} </div>
+            <div class="answers"> ${answers.join('')} </div>
+          </div>`
         );
       }
     );
@@ -130,7 +135,7 @@
     // 全ての質問に対して、forEachを適用させる処理
     myQuestions.forEach( (currentQuestion, questionNumber) => {
 
-      // 選択された答えを取得してくる  ここがいまいち分かりづらい！！！あ、でもわかったかも。
+      // 選択された答えを取得してくる  
       // 一つ目の行はすべての解答のうち、選択されている質問の解答だけを選択する
       // 次にに合致している物だけを抽出する
       // そして、選ばれている答えのvalue値を取得する
@@ -158,11 +163,55 @@
   }
 
 
+  // こっからスライドを表示する処理
+
+  function showSlide(n) {
+    slides[currentSlide].classList.remove('active-slide');
+    slides[n].classList.add('active-slide');
+    currentSlide = n;
+    if(currentSlide === 0){
+      previousButton.style.display = 'none';
+    }
+    else{
+      previousButton.style.display = 'inline-block';
+    }
+    if(currentSlide === slides.length-1){
+      nextButton.style.display = 'none';
+      submitButton.style.display = 'inline-block';
+    }
+    else{
+      nextButton.style.display = 'inline-block';
+      submitButton.style.display = 'none';
+    }
+
+  }
+
   // クイズをすぐに表示する処理
   buildQuiz();
 
-  // 提出ボタンを押すことで、結果を表示する処理。addEventListenerとShowResults関数用意
+  // 次のスライドに映るナビ
+  function showNextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  // 前のスライドに映るナビ
+  function showPreviousSlide() {
+    showSlide(currentSlide - 1);
+  }
+
+  // ナビゲーションボタンを押した時の処理
+  const previousButton = document.getElementById("previous");
+  const nextButton = document.getElementById("next");
+  const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+
+  // 最初のスライドを表示する処理
+  showSlide(currentSlide);
+  
+  // ボタンを押した時の処理
   submitButton.addEventListener('click', showResults);
+  previousButton.addEventListener("click", showPreviousSlide);
+  nextButton.addEventListener("click", showNextSlide);
 
 })();
 
