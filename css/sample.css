@@ -44,7 +44,7 @@ button{
   border-radius: 3px;
   padding: 20px;
   cursor: pointer;
-  margin-top: 230px;
+  margin-top: 250px;
   margin-bottom: 20px;
 }
 button:hover{
@@ -67,5 +67,20 @@ button:hover{
   position: relative;
   height: 200px;
   margin-top: 40px;
+}
+#exp{
+  font-size: 24px;
+  font-weight: bold;
+}
+#pic img{
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+#play, #volume-up, #volume-down, #mute{
+  width: 150px;
+  height: 80px;
+  margin: 20px 0;
+  text-align: center;
 }
 

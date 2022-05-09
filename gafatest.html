@@ -14,7 +14,6 @@
 </header>
 
 <main>
-
   <div>
     <p>あなたのベンチャー知識測定テスト〜（パフパフ！）</p>
     <p>S~Dランクの評価がつきます！</p>
@@ -22,17 +21,21 @@
     </div>
     <div class="wrapper">
       <div class="quiz_wrapper">
-        <h4>日本や海外の面白いベンチャー企業についてのクイズです！</h4>
+        <h4>日本の企業についてのクイズです！</h4>
         <div id="quiz"></div>
           <button id="previous">前の問題</button>
           <button id="next">次の問題</button>
           <button id="submit">解答する</button>
-        <div id="results"></div>  
+        <div id="results"></div> 
+        <div id="exp"></div> 
+        <div id="pic"></div>
+        <div id="music_play"></div>
+        <div id="volume_up"></div>
+        <div id="volume_down"></div>
+        <div id="music_mute"></div>
       </div>
     </div>
   </div>
-
-
 </main>
 
 <footer></footer>
@@ -133,7 +136,7 @@
       correctAnswer: "d"
     },
     {
-      question: "「セカイを変える　GEEKになろう」のミッションを掲げ、累計起業数73社、卒業生の累計資金調達学83億というユニークな学校といえば？",
+      question: "「セカイを変える　GEEKになろう」のミッションを掲げ、累計起業数73社、卒業生の累計資金調達学83億という実績を持つユニークな学校といえば？",
       answers: {
         a: "チーズアカデミー（Cheese Academy）",
         b: "テックアカデミー（Tech Academy）",
@@ -224,9 +227,373 @@
     });
 
     // 全部でどのくらいあってるのかを計算
-    resultsContainer.innerHTML = numCorrect + ' out of ' + myQuestions.length;
-  }
+    resultsContainer.innerHTML =myQuestions.length + '問中' + numCorrect + '問正解';
 
+    // const music = new Audio('./musics/shigenop.mp3');
+    // const play = document.getElementById('music_play');
+    // const volumeUp = document.getElementById('volume_up');
+    // const volumeDown = document.getElementById('volume_down');
+    // const mute = document.getElementById('music_mute');
+    // music.volume = 0.5;
+
+    // 再生ボタン
+    // play.addEventListener('click', function(){
+    //   if(!music.paused){
+    //     play.innerHTML ="再生";
+    //     music.pause();
+    //     }else{
+    //     play.innerHTML = "停止";
+    //     music.play();
+    //   }
+    // });
+
+    // // 音声アップとダウン
+    // volumeUp.addEventListener('click', function(){
+    // const volume = music.volume;
+    //   if(volume < 1){
+    //     music.volume = (volume * 10 + 1) / 10;
+    //   }
+    // });
+
+    // volumeDown.addEventListener('click', function(){
+    //   const volume = music.volume;
+    //   if(volume > 0){
+    //     music.volume = (volume * 10 - 1) / 10;
+    //   }
+    // });
+
+    // // ミュートボタン
+    // mute.addEventListener('click', function(){
+    //   if(music.muted){
+    //     music.muted = false;
+    //     mute.innerHTML = '✖︎';
+    //   }else{
+    //     music.muted = true;
+    //     mute.innerHTML = '◯';
+    //   }
+    // });
+
+      // 点数結果に応じて表示されるものが違くなるようにする
+    $("#submit").on("click",function(){
+      if(numCorrect === 10) {
+        $("#exp").html('おめでとう！満点です！評価S');
+        $("#pic").html('<img src="./img/major_goro_02.jpeg">');
+
+        const music = new Audio('./musics/shigenop.mp3');
+        const play = document.getElementById('music_play');
+        const volumeUp = document.getElementById('volume_up');
+        const volumeDown = document.getElementById('volume_down');
+        const mute = document.getElementById('music_mute');
+        music.volume = 0.3;
+
+        play.addEventListener('click', function(){
+        if(!music.paused){
+        play.innerHTML ="再生";
+        music.pause();
+        }else{
+        play.innerHTML = "停止";
+        music.play();
+        }
+        });
+
+        // 音声アップとダウン
+        volumeUp.addEventListener('click', function(){
+        const volume = music.volume;
+          if(volume < 1){
+            music.volume = (volume * 10 + 1) / 10;
+          }
+        });
+
+        volumeDown.addEventListener('click', function(){
+          const volume = music.volume;
+          if(volume > 0){
+            music.volume = (volume * 10 - 1) / 10;
+          }
+        });
+
+        // ミュートボタン
+        mute.addEventListener('click', function(){
+          if(music.muted){
+            music.muted = false;
+            mute.innerHTML = '✖︎';
+          }else{
+            music.muted = true;
+            mute.innerHTML = '◯';
+          }
+        });
+
+        $("#music_play").html('<button id="play" class="btn btn-primary">再生</button>')
+        $("#volume_up").html('<button id="volume-up" class="btn btn-success">音量アップ</button>')
+        $("#volume_down").html('<button id="volume-down" class="btn btn-success">音量ダウン</button>')
+        $("#music_mute").html('<button id="mute" class="btn btn-warning">ミュート</button>')
+
+        } else if (numCorrect > 8) {
+        $("#exp").html('おしい！９点です！評価A');
+        $("#pic").html('<img src="./img/shankus.jpeg">');
+
+        const music = new Audio('./musics/shankus.mp3');
+        const play = document.getElementById('music_play');
+        const volumeUp = document.getElementById('volume_up');
+        const volumeDown = document.getElementById('volume_down');
+        const mute = document.getElementById('music_mute');
+        music.volume = 0.3;
+        music.currentTime = 116;
+
+        play.addEventListener('click', function(){
+        if(!music.paused){
+        play.innerHTML ="再生";
+        music.pause();
+        }else{
+        play.innerHTML = "停止";
+        music.play();
+        }
+        });
+
+        // 音声アップとダウン
+        volumeUp.addEventListener('click', function(){
+        const volume = music.volume;
+          if(volume < 1){
+            music.volume = (volume * 10 + 1) / 10;
+          }
+        });
+
+        volumeDown.addEventListener('click', function(){
+          const volume = music.volume;
+          if(volume > 0){
+            music.volume = (volume * 10 - 1) / 10;
+          }
+        });
+
+        // ミュートボタン
+        mute.addEventListener('click', function(){
+          if(music.muted){
+            music.muted = false;
+            mute.innerHTML = '✖︎';
+          }else{
+            music.muted = true;
+            mute.innerHTML = '◯';
+          }
+        });
+
+        $("#music_play").html('<button id="play" class="btn btn-primary">再生</button>')
+        $("#volume_up").html('<button id="volume-up" class="btn btn-success">音量アップ</button>')
+        $("#volume_down").html('<button id="volume-down" class="btn btn-success">音量ダウン</button>')
+        $("#music_mute").html('<button id="mute" class="btn btn-warning">ミュート</button>')
+
+        } else if (numCorrect > 7) {
+        $("#exp").html('もう一声！８点です！評価B');
+        $("#pic").html('<img src="./img/spaceb.jpeg">');
+
+        const music = new Audio('./musics/enemy.mp3');
+        const play = document.getElementById('music_play');
+        const volumeUp = document.getElementById('volume_up');
+        const volumeDown = document.getElementById('volume_down');
+        const mute = document.getElementById('music_mute');
+        music.volume = 0.3;
+
+        play.addEventListener('click', function(){
+        if(!music.paused){
+        play.innerHTML ="再生";
+        music.pause();
+        }else{
+        play.innerHTML = "停止";
+        music.play();
+        }
+        });
+
+        // 音声アップとダウン
+        volumeUp.addEventListener('click', function(){
+        const volume = music.volume;
+          if(volume < 1){
+            music.volume = (volume * 10 + 1) / 10;
+          }
+        });
+
+        volumeDown.addEventListener('click', function(){
+          const volume = music.volume;
+          if(volume > 0){
+            music.volume = (volume * 10 - 1) / 10;
+          }
+        });
+
+        // ミュートボタン
+        mute.addEventListener('click', function(){
+          if(music.muted){
+            music.muted = false;
+            mute.innerHTML = '✖︎';
+          }else{
+            music.muted = true;
+            mute.innerHTML = '◯';
+          }
+        });
+
+        $("#music_play").html('<button id="play" class="btn btn-primary">再生</button>')
+        $("#volume_up").html('<button id="volume-up" class="btn btn-success">音量アップ</button>')
+        $("#volume_down").html('<button id="volume-down" class="btn btn-success">音量ダウン</button>')
+        $("#music_mute").html('<button id="mute" class="btn btn-warning">ミュート</button>')
+
+        } else if (numCorrect > 6) {
+        $("#exp").html('まずまず！７点です！評価C');
+        $("#pic").html('<img src="./img/haikyu.jpeg">');
+
+        const music = new Audio('./musics/maketenai.mp3');
+        const play = document.getElementById('music_play');
+        const volumeUp = document.getElementById('volume_up');
+        const volumeDown = document.getElementById('volume_down');
+        const mute = document.getElementById('music_mute');
+        music.volume = 0.3;
+
+        play.addEventListener('click', function(){
+        if(!music.paused){
+        play.innerHTML ="再生";
+        music.pause();
+        }else{
+        play.innerHTML = "停止";
+        music.play();
+        }
+        });
+
+        // 音声アップとダウン
+        volumeUp.addEventListener('click', function(){
+        const volume = music.volume;
+          if(volume < 1){
+            music.volume = (volume * 10 + 1) / 10;
+          }
+        });
+
+        volumeDown.addEventListener('click', function(){
+          const volume = music.volume;
+          if(volume > 0){
+            music.volume = (volume * 10 - 1) / 10;
+          }
+        });
+
+        // ミュートボタン
+        mute.addEventListener('click', function(){
+          if(music.muted){
+            music.muted = false;
+            mute.innerHTML = '✖︎';
+          }else{
+            music.muted = true;
+            mute.innerHTML = '◯';
+          }
+        });
+
+        $("#music_play").html('<button id="play" class="btn btn-primary">再生</button>')
+        $("#volume_up").html('<button id="volume-up" class="btn btn-success">音量アップ</button>')
+        $("#volume_down").html('<button id="volume-down" class="btn btn-success">音量ダウン</button>')
+        $("#music_mute").html('<button id="mute" class="btn btn-warning">ミュート</button>')
+
+        } else if (numCorrect > 5) {
+        $("#exp").html('これから頑張ろう！6点です！評価D');
+        $("#pic").html('<img src="./img/gai.jpeg">');
+
+        const music = new Audio('./musics/gai.mp3');
+        const play = document.getElementById('music_play');
+        const volumeUp = document.getElementById('volume_up');
+        const volumeDown = document.getElementById('volume_down');
+        const mute = document.getElementById('music_mute');
+        music.volume = 0.2;
+        music.currentTime = 373;
+
+        play.addEventListener('click', function(){
+        if(!music.paused){
+        play.innerHTML ="再生";
+        music.pause();
+        }else{
+        play.innerHTML = "停止";
+        music.play();
+        }
+        });
+
+        // 音声アップとダウン
+        volumeUp.addEventListener('click', function(){
+        const volume = music.volume;
+          if(volume < 1){
+            music.volume = (volume * 10 + 1) / 10;
+          }
+        });
+
+        volumeDown.addEventListener('click', function(){
+          const volume = music.volume;
+          if(volume > 0){
+            music.volume = (volume * 10 - 1) / 10;
+          }
+        });
+
+        // ミュートボタン
+        mute.addEventListener('click', function(){
+          if(music.muted){
+            music.muted = false;
+            mute.innerHTML = '✖︎';
+          }else{
+            music.muted = true;
+            mute.innerHTML = '◯';
+          }
+        });
+
+        $("#music_play").html('<button id="play" class="btn btn-primary">再生</button>')
+        $("#volume_up").html('<button id="volume-up" class="btn btn-success">音量アップ</button>')
+        $("#volume_down").html('<button id="volume-down" class="btn btn-success">音量ダウン</button>')
+        $("#music_mute").html('<button id="mute" class="btn btn-warning">ミュート</button>')
+
+        } else {
+        $("#exp").html('残念！5点以下です！評価F（落第）');
+        $("#pic").html('<img src="./img/onepiece.jpeg">');
+
+        const music = new Audio('./musics/nakama.mp3');
+        const play = document.getElementById('music_play');
+        const volumeUp = document.getElementById('volume_up');
+        const volumeDown = document.getElementById('volume_down');
+        const mute = document.getElementById('music_mute');
+        music.volume = 0.2;
+        music.currentTime = 57;
+
+
+        play.addEventListener('click', function(){
+        if(!music.paused){
+        play.innerHTML ="再生";
+        music.pause();
+        }else{
+        play.innerHTML = "停止";
+        music.play();
+        }
+        });
+
+        // 音声アップとダウン
+        volumeUp.addEventListener('click', function(){
+        const volume = music.volume;
+          if(volume < 1){
+            music.volume = (volume * 10 + 1) / 10;
+          }
+        });
+
+        volumeDown.addEventListener('click', function(){
+          const volume = music.volume;
+          if(volume > 0){
+            music.volume = (volume * 10 - 1) / 10;
+          }
+        });
+
+        // ミュートボタン
+        mute.addEventListener('click', function(){
+          if(music.muted){
+            music.muted = false;
+            mute.innerHTML = '✖︎';
+          }else{
+            music.muted = true;
+            mute.innerHTML = '◯';
+          }
+        });
+
+        $("#music_play").html('<button id="play" class="btn btn-primary">再生</button>')
+        $("#volume_up").html('<button id="volume-up" class="btn btn-success">音量アップ</button>')
+        $("#volume_down").html('<button id="volume-down" class="btn btn-success">音量ダウン</button>')
+        $("#music_mute").html('<button id="mute" class="btn btn-warning">ミュート</button>')
+      }
+    });
+
+  }
 
   // こっからスライドを表示する処理
 
@@ -278,7 +645,10 @@
   previousButton.addEventListener("click", showPreviousSlide);
   nextButton.addEventListener("click", showNextSlide);
 
+
 })();
+
+
 
 
 </script>
